@@ -52,4 +52,16 @@ public class Main {
         System.out.println("4. Reporte financiero");
         System.out.println("5. Salir");
     }
+    static void celdaDisponible(String tipo){
+        int inicio;
+        int fin;
+        if (tipo==CARRO) {
+            inicio=0;
+            fin=CAPACIDAD_CARROS;
+        } else if (tipo==MOTO) {
+            inicio=0;
+            fin=CAPACIDAD_MOTOS;
+        }else
+            System.out.println("Tipo de vehiculo no valido");
+    }
 }

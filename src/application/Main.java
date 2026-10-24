@@ -25,6 +25,12 @@ public class Main {
     static long recaudoCarros;
     static long recaudoMotos;
     public static void main(String[] args){
+        iniciarEspacios();
+        int opc=0;
+        do {
+            menu();
+            opc= sc.nextInt();
+        }while (opc!=5);
 
     }
     static void iniciarEspacios() {
@@ -36,5 +42,14 @@ public class Main {
         celdasLibres = CAPACIDAD_TOTAL;
         recaudoCarros = 0;
         recaudoMotos = 0;
+    }
+    static void menu(){
+        System.out.println("Bienvenido al parqueadero Parquipass");
+        System.out.println("Seleccione una opcion");
+        System.out.println("1. Registrar hora de entrada");
+        System.out.println("2. Registrar hora de salida");
+        System.out.println("3. Reporte de ocupacion");
+        System.out.println("4. Reporte financiero");
+        System.out.println("5. Salir");
     }
 }

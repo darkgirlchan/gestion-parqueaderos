@@ -27,5 +27,14 @@ public class Main {
     public static void main(String[] args){
 
     }
-
+    static void iniciarEspacios() {
+        for (int i = 0; i< CAPACIDAD_TOTAL; i++){
+            tiposVehiculos[i]= null;
+            fechaIngresos[i]=null;
+        }
+        celdasOcupadas = 0;
+        celdasLibres = CAPACIDAD_TOTAL;
+        recaudoCarros = 0;
+        recaudoMotos = 0;
+    }
 }

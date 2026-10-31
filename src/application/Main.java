@@ -1,4 +1,5 @@
 package application;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.time.LocalDateTime;
@@ -77,5 +78,27 @@ public class Main {
             }
         }
         return numero;
+    }
+    static LocalDateTime leerFechaHora() {
+        System.out.println("Año:");
+        int anio = leerEntero(2000, 2100);
+
+        System.out.println("Mes del 1 al 12:");
+        int mes = leerEntero(1, 12);
+
+        int ultimoDia = YearMonth.of(anio, mes).lengthOfMonth();
+        System.out.println("Dia (1-" + ultimoDia + "):");
+        int dia = leerEntero(1, ultimoDia);
+
+        System.out.println("Hora (" + HORA_APERTURA + "-" + HORA_CIERRE + "):");
+        int hora = leerEntero(HORA_APERTURA, HORA_CIERRE);
+
+        int minuto = 0;
+        if (hora != HORA_CIERRE) {
+            System.out.println("Minuto de 0 a 59):");
+            minuto = leerEntero(0, 59);
+        }
+
+        return LocalDateTime.of(anio, mes, dia, hora, minuto);
     }
 }

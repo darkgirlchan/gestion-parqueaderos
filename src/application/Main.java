@@ -1,4 +1,5 @@
 package application;
+import java.time.Duration;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -34,6 +35,10 @@ public class Main {
             switch (opc){
                 case 1:
                     registrarEntrada();
+                    break;
+                case 2:
+                    registrarSalida();
+                    break;
             }
         }while (opc!=5);
 
@@ -139,5 +144,70 @@ public class Main {
         celdasLibres--;
 
         System.out.println("Su vehiculo a sido guardado en la celda " + (posicion + 1));
+    }
+    static void registrarSalida() {
+        System.out.println("ingrese el numero de celda al que va a cobrar salida (1 a " + CAPACIDAD_TOTAL + "):");
+        int celda = leerEntero(1, CAPACIDAD_TOTAL);
+        int posicion = celda - 1;
+
+        if (tiposVehiculos[posicion] == null) {
+            System.out.println("esta celda esta vacia no hay nada pendiente por cobrar");
+            return;
+        }
+
+        String tipo = tiposVehiculos[posicion];
+        LocalDateTime ingreso = fechaIngresos[posicion];
+
+        System.out.println("registre la fecha y hora de saida");
+        LocalDateTime salida = leerFechaHora();
+        while (salida.isBefore(ingreso)) {
+            System.out.println("la hora de salida no puede ser menor a la fecha de ingreso");
+            salida = leerFechaHora();
+        }
+        long tarifaHora;
+        long tarifaDia;
+        if (tipo==CARRO) {
+            tarifaHora=TARIFA_HORA_CARRO;
+            tarifaDia=TARIFA_DIA_CARRO;
+        } else {
+            tarifaHora=TARIFA_HORA_MOTO;
+            tarifaDia=TARIFA_DIA_MOTO;
+        }
+        long minutosTotales = Duration.between(ingreso, salida).toMinutes();
+        long dias = minutosTotales / (24 * 60);
+        long minutosSobrantes = minutosTotales % (24 * 60);
+        long horas = (minutosSobrantes + 59) / 60;
+
+        if (horas >= UMBRAL_HORAS_DIA) {
+            dias++;
+            horas = 0;
+        }
+
+        long total = dias * tarifaDia + horas * tarifaHora;
+
+        System.out.println();
+        System.out.println("factura");
+        System.out.println("celda liberada: " + celda);
+        System.out.println("tipo de vehiculo: " + tipo);
+        System.out.println("su fecha y hora de ingreso es: " + ingreso.format(FORMATO_FECHA_HORA));
+        System.out.println("su fecha y hora de salida es: " + salida.format(FORMATO_FECHA_HORA));
+        if (dias > 0) {
+            System.out.println(dias + " dia(s) x $" + tarifaDia + " = $" + (dias * tarifaDia));
+        }
+        if (horas > 0) {
+            System.out.println(horas + " hora(s) x $" + tarifaHora + " = $" + (horas * tarifaHora));
+        }
+        System.out.println("El total a pagar es: $" + total);
+
+        if (tipo==CARRO) {
+            recaudoCarros = recaudoCarros + total;
+        } else {
+            recaudoMotos = recaudoMotos + total;
+        }
+
+        tiposVehiculos[posicion] = null;
+        fechaIngresos[posicion] = null;
+        celdasOcupadas--;
+        celdasLibres++;
     }
 }

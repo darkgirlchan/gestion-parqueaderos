@@ -31,6 +31,10 @@ public class Main {
         do {
             menu();
             opc= leerEntero(1,5);
+            switch (opc){
+                case 1:
+                    registrarEntrada();
+            }
         }while (opc!=5);
 
     }
@@ -109,5 +113,31 @@ public class Main {
         }
 
         return LocalDateTime.of(anio, mes, dia, hora, minuto);
+    }
+    static void registrarEntrada() {
+        System.out.println("cual es el tipo de vehiculo seleccione 1 para Carro y 2 para Moto):");
+        int opcion = leerEntero(1, 2);
+        String tipo;
+        if (opcion == 1) {
+            tipo = CARRO;
+        } else {
+            tipo = MOTO;
+        }
+
+        int posicion = celdaDisponible(tipo);
+        if (posicion == -1) {
+            System.out.println("No quedan celdas disponibles para ese tipo de vehiculo");
+            return;
+        }
+
+        System.out.println("Ingrese su fecha y hora de ingreso");
+        LocalDateTime ingreso = leerFechaHora();
+
+        tiposVehiculos[posicion] = tipo;
+        fechaIngresos[posicion] = ingreso;
+        celdasOcupadas++;
+        celdasLibres--;
+
+        System.out.println("Su vehiculo a sido guardado en la celda " + (posicion + 1));
     }
 }

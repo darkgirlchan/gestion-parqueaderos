@@ -53,17 +53,26 @@ public class Main {
         System.out.println("4. Reporte financiero");
         System.out.println("5. Salir");
     }
-    static void celdaDisponible(String tipo){
+    static int celdaDisponible(String tipo) {
         int inicio;
         int fin;
         if (tipo==CARRO) {
-            inicio=0;
-            fin=CAPACIDAD_CARROS;
+            inicio = 0;
+            fin = CAPACIDAD_CARROS;
         } else if (tipo==MOTO) {
-            inicio=0;
-            fin=CAPACIDAD_MOTOS;
-        }else
+            inicio = CAPACIDAD_CARROS;
+            fin = CAPACIDAD_TOTAL;
+        } else {
             System.out.println("Tipo de vehiculo no valido");
+            return -1;
+        }
+
+        for (int i = inicio; i < fin; i++) {
+            if (tiposVehiculos[i] == null) {
+                return i;
+            }
+        }
+        return -1;
     }
     static int leerEntero(int minimo, int maximo) {
         int numero = minimo - 1;

@@ -29,7 +29,7 @@ public class Main {
         int opc=0;
         do {
             menu();
-            opc= sc.nextInt();
+            opc= leerEntero(1,5);
         }while (opc!=5);
 
     }
@@ -63,5 +63,19 @@ public class Main {
             fin=CAPACIDAD_MOTOS;
         }else
             System.out.println("Tipo de vehiculo no valido");
+    }
+    static int leerEntero(int minimo, int maximo) {
+        int numero = minimo - 1;
+        while (numero < minimo || numero > maximo) {
+            while (!sc.hasNextInt()) {
+                sc.next();
+                System.out.println("Escriba un numero que sea valido");
+            }
+            numero = sc.nextInt();
+            if (numero < minimo || numero > maximo) {
+                System.out.println("debe de digitar un numero que este entre " + minimo + " y " + maximo);
+            }
+        }
+        return numero;
     }
 }

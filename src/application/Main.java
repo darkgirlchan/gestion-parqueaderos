@@ -42,6 +42,9 @@ public class Main {
                 case 3:
                     reporteOcupacion();
                     break;
+                case 4:
+                    reporteRecaudo();
+                    break;
             }
         }while (opc!=5);
 
@@ -234,5 +237,11 @@ public class Main {
         System.out.println("Celdas libres para carros: " + (CAPACIDAD_CARROS - carrosOcupados));
         System.out.println("Celdas ocupada por motos: " + motosOcupadas);
         System.out.println("Celdas libres para motos: " + (CAPACIDAD_MOTOS - motosOcupadas));
+    }
+    static void reporteRecaudo() {
+        System.out.println("Reporte de recaudo");
+        System.out.println("Total recaudado por ingreso de carros: $" + recaudoCarros);
+        System.out.println("Total recaudado por ingreso de motos: $" + recaudoMotos);
+        System.out.println("Total general recaudado: $" + (recaudoCarros + recaudoMotos));
     }
 }

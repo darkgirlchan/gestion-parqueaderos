@@ -39,6 +39,9 @@ public class Main {
                 case 2:
                     registrarSalida();
                     break;
+                case 3:
+                    reporteOcupacion();
+                    break;
             }
         }while (opc!=5);
 
@@ -209,5 +212,27 @@ public class Main {
         fechaIngresos[posicion] = null;
         celdasOcupadas--;
         celdasLibres++;
+    }
+    static void reporteOcupacion() {
+        System.out.println();
+        System.out.println("Reporte de Ocupacion");
+        int carrosOcupados = 0;
+        int motosOcupadas = 0;
+        for (int i = 0; i < CAPACIDAD_TOTAL; i++) {
+            if (tiposVehiculos[i] != null) {
+                if (tiposVehiculos[i]==CARRO) {
+                    carrosOcupados++;
+                } else {
+                    motosOcupadas++;
+                }
+            }
+        }
+
+        System.out.println("Total de celdas ocupadas: " + celdasOcupadas);
+        System.out.println("Total de celdas libres: " + celdasLibres);
+        System.out.println("Celdas ocupadas por carros: " + carrosOcupados);
+        System.out.println("Celdas libres para carros: " + (CAPACIDAD_CARROS - carrosOcupados));
+        System.out.println("Celdas ocupada por motos: " + motosOcupadas);
+        System.out.println("Celdas libres para motos: " + (CAPACIDAD_MOTOS - motosOcupadas));
     }
 }
